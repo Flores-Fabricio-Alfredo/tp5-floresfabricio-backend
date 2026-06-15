@@ -1,0 +1,569 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Gestión - TP5 - Flores Fabricio Alfredo",
+    "description": "Documentación automatizada de la API-REST para el Trabajo Práctico N°5.",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Socios",
+      "description": "Operaciones relacionadas con los Socios (Punto 1)"
+    },
+    {
+      "name": "Transacciones",
+      "description": "Log de transacciones e idiomas (Punto 2)"
+    },
+    {
+      "name": "Empleados",
+      "description": "Gestión de empleados (Punto 3)"
+    },
+    {
+      "name": "Publicaciones",
+      "description": "Gestión de publicaciones en Base64 (Punto 3)"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/socios/": {
+      "post": {
+        "tags": [
+          "Socios"
+        ],
+        "summary": "Dar de alta un Socio",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del nuevo socio",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Socios"
+        ],
+        "summary": "Recuperar TODOS los Socios",
+        "description": "Retorna una lista completa de los socios registrados.",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socios/activos": {
+      "get": {
+        "tags": [
+          "Socios"
+        ],
+        "summary": "Recuperar los socios ACTIVOS",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/socios/{id}": {
+      "put": {
+        "tags": [
+          "Socios"
+        ],
+        "summary": "Modificar un Socio",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del socio a modificar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Socio"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Socios"
+        ],
+        "summary": "Eliminar un Socio",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transacciones/": {
+      "post": {
+        "tags": [
+          "Transacciones"
+        ],
+        "summary": "Dar de alta una Transaccion",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos de la transacción",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Transaccion"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Transacciones"
+        ],
+        "summary": "Recuperar TODAS las Transacciones Registradas",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transacciones/cliente/{email}": {
+      "get": {
+        "tags": [
+          "Transacciones"
+        ],
+        "summary": "Recuperar el histórico de transacciones de un determinado cliente por email",
+        "description": "",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/transacciones/filtrar/{origen}/{destino}": {
+      "get": {
+        "tags": [
+          "Transacciones"
+        ],
+        "summary": "Recuperar TODAS las Transacciones por idiomas de origen y destino",
+        "description": "",
+        "parameters": [
+          {
+            "name": "origen",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "destino",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/empleados/": {
+      "post": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Dar de alta un Empleado",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos del empleado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Empleado"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Obtener todos los Empleados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/empleados/{id}": {
+      "get": {
+        "tags": [
+          "Empleados"
+        ],
+        "summary": "Obtener UN Empleado por ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/publicaciones/": {
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Dar de alta una Publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos de la publicación",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Recuperar TODAS las publicaciones incluyendo información de los empleados",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/publicaciones/{id}": {
+      "put": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Modificar una publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Datos de la publicación a modificar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Publicacion"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Eliminar una publicación",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/publicaciones/buscar/{titulo}/{vigente}": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Recuperar Publicaciones basándose en una búsqueda combinada por params",
+        "description": "",
+        "parameters": [
+          {
+            "name": "titulo",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "vigente",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Socio": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "example": "Fabricio Alfredo"
+        },
+        "apellido": {
+          "type": "string",
+          "example": "Flores"
+        },
+        "foto": {
+          "type": "string",
+          "example": "https://example.com/foto.jpg"
+        },
+        "dni": {
+          "type": "string",
+          "example": "12345678"
+        },
+        "numeroSocio": {
+          "type": "number",
+          "example": 1001
+        },
+        "activo": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "Transaccion": {
+      "type": "object",
+      "properties": {
+        "idiomaOrigen": {
+          "type": "string",
+          "example": "en"
+        },
+        "textoOrigen": {
+          "type": "string",
+          "example": "Hello World"
+        },
+        "idiomaDestino": {
+          "type": "string",
+          "example": "es"
+        },
+        "textoDestino": {
+          "type": "string",
+          "example": "Hola Mundo"
+        },
+        "emailCliente": {
+          "type": "string",
+          "example": "fabricio@mail.com"
+        }
+      }
+    },
+    "Empleado": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "example": "Lucas"
+        },
+        "apellido": {
+          "type": "string",
+          "example": "Acho"
+        },
+        "dni": {
+          "type": "string",
+          "example": "87654321"
+        },
+        "email": {
+          "type": "string",
+          "example": "lucasacho@mail.com"
+        }
+      }
+    },
+    "Publicacion": {
+      "type": "object",
+      "properties": {
+        "titulo": {
+          "type": "string",
+          "example": "Nuevo Lanzamiento"
+        },
+        "contenido": {
+          "type": "string",
+          "example": "Texto descriptivo de la publicación."
+        },
+        "imagenAsociada": {
+          "type": "string",
+          "example": "data:image/png;base64,..."
+        },
+        "fechaPublicacion": {
+          "type": "string",
+          "example": "15-06-2026"
+        },
+        "vigente": {
+          "type": "boolean",
+          "example": true
+        },
+        "empleadoId": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    }
+  }
+}
